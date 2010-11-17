@@ -17,11 +17,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_lineEdit_returnPressed()
 {
     QString url = ui->lineEdit->text();
-    //url =
-    if(url.contains('http://', Qt::CaseInsensitive) ) // Not case sensitive
-    {
-        // Append in case user forgets
-        url.prepend('http://');
-    }
+
+//    QRegExp rx(".*?([^.]+\\.[^.]+)");
+//    if(rx.exactMatch(url))
+//    {
+//        if(url.contains('http://', Qt::CaseInsensitive) ) // Not case sensitive
+//        {
+//            // Append in case user forgets
+//            url.prepend('http://');
+//        }
+//    }
+//    else
+//    {
+//        url.prepend('http://www.google.com/search?q=');
+//    }
+
     ui->webView->load(QUrl(url));
+}
+
+void MainWindow::on_goButton_clicked()
+{
+    on_lineEdit_returnPressed();
 }

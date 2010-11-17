@@ -17,6 +17,7 @@ public:
 
 public slots:
     void on_lineEdit_returnPressed();
+    void on_goButton_clicked();
 
 private:
     Ui::MainWindow *ui;
