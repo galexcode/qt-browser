@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit
+QT       += core gui webkit network
 
 TARGET = browser
 TEMPLATE = app
@@ -22,7 +22,9 @@ MOBILITY =
 
 symbian {
     TARGET.UID3 = 0xed041ce5
-    # TARGET.CAPABILITY += 
+    TARGET.CAPABILITY += NetworkServices
     TARGET.EPOCSTACKSIZE = 0x14000
     TARGET.EPOCHEAPSIZE = 0x020000 0x800000
 }
+
+RESOURCES +=
