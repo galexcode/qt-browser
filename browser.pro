@@ -11,9 +11,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    mobilewebpage.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    mobilewebpage.h
 
 FORMS    += mainwindow.ui
 
@@ -27,4 +29,5 @@ symbian {
     TARGET.EPOCHEAPSIZE = 0x020000 0x800000
 }
 
-RESOURCES +=
+RESOURCES += \
+    browser.qrc

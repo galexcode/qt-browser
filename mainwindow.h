@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QProgressBar>
 #include <QUrl>
+#include <QGraphicsWebView>
 
 namespace Ui {
     class MainWindow;
@@ -24,6 +25,7 @@ private:
     QProgressBar *pb;
 
 public slots:
+    void on_lineEdit_focus();
     void on_lineEdit_returnPressed();
     void on_goButton_clicked();
 

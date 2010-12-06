@@ -3,6 +3,7 @@
 
 #include <QProgressBar>
 #include <QStatusBar>
+#include <mobilewebpage.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,15 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // By default
+    // zzz
+    ui->webView->setPage(new MobileWebPage(parent));
+    ui->webView->settings()->setDefaultTextEncoding("utf-8");
+
+    // Set google page by default
     ui->lineEdit->setText("http://www.google.com");
     ui->webView->load(QUrl(ui->lineEdit->text()));
 
-    // Status bar
-    ui->progressBar->hide();
-    ui->statusBar->addPermanentWidget(ui->progressBar);
-    this->setStatusBar(ui->statusBar);
-    ui->statusBar->hide();
 //    pb = new QProgressBar(statusBar());
 //    pb->setTextVisible(false);
 //    pb->hide();
@@ -40,6 +40,11 @@ void MainWindow::on_lineEdit_returnPressed()
     ui->webView->load(url);
 }
 
+void MainWindow::on_lineEdit_focus()
+{
+    ui->lineEdit->selectAll();
+}
+
 void MainWindow::on_goButton_clicked()
 {
     on_lineEdit_returnPressed();
@@ -58,6 +63,7 @@ void MainWindow::on_webView_loadStarted()
 void MainWindow::on_webView_loadProgress(int progress)
 {
     ui->progressBar->setValue(progress);
+
 }
 
 void MainWindow::on_webView_loadFinished(bool ok)
@@ -87,10 +93,12 @@ QUrl MainWindow::guessUrlFromString(const QString string)
             const QString hostscheme = trimmedString.left(dotIndex).toLower();
             QByteArray scheme = (hostscheme == QLatin1String("ftp")) ? "ftp" : "http";
             trimmedString = QLatin1String(scheme) + QLatin1String("://") + trimmedString;
+        } else {
+            // This looks like a keyword, search Google
+            trimmedString = QString("http://www.google.com/search?q=") + trimmedString;
         }
         url = QUrl::fromEncoded(trimmedString.toUtf8(), QUrl::TolerantMode);
     }
-
     if (url.isValid())
         return url;
 
